@@ -1,0 +1,224 @@
+﻿@model IEnumerable<WorkshopImproved.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<form asp-controller="Books" asp-action="Index">
+    <p>
+        Title: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<form asp-controller="Books" asp-action="Index">
+    <p>
+        Genre: <input type="text" name="SearchGenre" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<form asp-controller="Books" asp-action="Index">
+    <p>
+        Author Name: <input type="text" name="SearchName" />
+    </p>
+
+    <p>
+        Author Surname: <input type="text" name="SearchSurname" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearPublished)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumPages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrontPage)
+            </th>
+            <th>
+                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
+                {
+                    @Html.DisplayNameFor(model => model.DownloadUrl)
+                }
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Prosek)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @if (ViewBag.lista != null)
+        {
+            foreach (var list in ViewBag.lista)
+            {
+                <tr>
+                    <td>
+                        @list.Title
+                    </td>
+                    <td>
+                        @list.YearPublished
+                    </td>
+                    <td>
+                        @list.NumPages
+                    </td>
+                    <td>
+                        @list.Description
+                    </td>
+                    <td>
+                        @list.Publisher
+                    </td>
+                    <td>
+
+                        @if (File.Exists(("C:/Users/Miroslav Jovanovic/Documents/WorkshopImproved/wwwroot/images/" + list.FrontPage)))
+
+                        {
+                            <img src="~/images/@list.FrontPage"
+                                 class="rounded-circle"
+                                 height="100" width="100"
+                     asp-append-version="true" />
+                        }
+
+                        else
+                        {
+                            <img src="@list.FrontPage"
+                                 class="rounded-circle"
+                                 height="100" width="100"
+                     asp-append-version="true" />
+                        }
+
+                    </td>
+
+
+                    <td>
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
+                        {
+                            <form a asp-action="GetPdf" asp-controller="Books">
+                                <input name="url" type="hidden" value="@list.DownloadUrl">
+                                <input type="submit" value="Download pdf">
+                            </form>
+                        }
+                    </td>
+
+                    <td>
+                        @list.Author.FullName
+                    </td>
+                    <td>@list.Prosek</td>
+
+                    <td>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@list.Id">Edit</a>
+                        }
+                        <a asp-action="Details" asp-route-id="@list.Id">Details</a>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@list.Id">Delete</a>
+                        }
+                    </td>
+                </tr>
+
+            }
+        }
+
+        else{
+
+@foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YearPublished)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumPages)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publisher)
+                        </td>
+                    <td>
+
+                        @if (File.Exists(("C:/Users/Miroslav Jovanovic/Documents/WorkshopImproved/wwwroot/images/" + item.FrontPage)))
+               
+                        {
+                            <img src="~/images/@item.FrontPage"
+            class="rounded-circle"
+            height="100" width="100"
+                     asp-append-version="true" />
+                        }
+
+                        else
+                        {
+                            <img src="@item.FrontPage"
+                                 class="rounded-circle"
+                                 height="100" width="100"
+                     asp-append-version="true" />
+                        }
+
+                     
+                    </td>
+
+
+                    <td>
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
+                        {
+                            <form a asp-action = "GetPdf" asp-controller = "Books">
+                                <input name="url" type="hidden" value="@item.DownloadUrl">
+                                <input type="submit" value="Download pdf">
+                            </form>
+                        }
+                    </td>
+
+                    <td>
+                            @Html.DisplayFor(modelItem => item.Author.FullName)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Prosek)</td>
+
+                        <td>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        }
+
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+
+                        </td>
+                    </tr>
+               
+}
+}
+    </tbody>
+</table>

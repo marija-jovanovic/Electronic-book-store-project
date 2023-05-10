@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WorkshopImproved.Models.UserBooks>
+@using Microsoft.AspNetCore.Identity
+@using WorkshopImproved.Areas.Identity.Data
+
+@inject SignInManager<WorkshopImprovedUser> SignInManager
+@inject UserManager<WorkshopImprovedUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>My Books</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            @if (item.AppUser == @UserManager.GetUserName(User))
+            {
+                <tr>
+                    <td>
+
+                        @UserManager.GetUserName(User)
+            </td>
+
+            <td>
+                        <a asp-action="Details" asp-controller="Books" asp-route-id="@item.BookId"> @Html.DisplayFor(modelItem => item.Book.Title) </a>
+            </td>
+
+            <td>
+
+                        <form a asp-action="GetPdf" asp-controller="Books">
+                            <input name="url" type="hidden" value="@item.Book.DownloadUrl">
+                            <input type="submit" value="Download pdf">
+                        </form>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+}
+    </tbody>
+</table>
