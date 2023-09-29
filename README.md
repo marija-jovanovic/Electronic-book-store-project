@@ -9,6 +9,18 @@ More information about this university course can be found at the following <a h
 
 The MVC Web Application is created using ASP.NET Core and it simulates an electronic book store. It allows users to view all books with an option to filter by title, search books belonging to a specific genre, create reviews about books that the user had already bought, edit/delete existing reviews and view all authors with the option to filter by name, surname and nationality. 
 
+<h2 align = center>How to run the project on your machine</h2>
+
+First and foremost, you will need to download Microsoft .NET SDK. For this project, the 6.0 version was used.
+
+Next, it is recommended to download Visual Studio. The visual studio version for this project is from 2022.
+
+To make sure you have installed all the required . NET libraries, use the NuGet package manager.
+
+Once you clone this repository, open it in visual studio and go to Tools -> NuGet Package Manager -> Package Manager Console. In the Package Manager Console type Update-Database. The Update-Database command is needed to create the database. 
+
+Once the Package Manager Console finishes its job, you can run the application.
+
 <h2 align = center>Goal and requirements</h2>
 
 The creation of this project was divided into two phases.
