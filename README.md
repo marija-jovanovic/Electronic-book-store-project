@@ -11,15 +11,27 @@ The MVC Web Application is created using ASP.NET Core and it simulates an electr
 
 <h2 align = center>How to run the project on your machine</h2>
 
-First and foremost, you will need to download Microsoft .NET SDK. For this project, the 6.0 version was used.
+First and foremost, you will need to download Microsoft .NET SDK. For this project, the 6.0 version is used.
 
-Next, it is recommended to download Visual Studio. The visual studio version for this project is from 2022.
+Next, it is recommended to download Visual Studio. The Visual Studio version for this project is from 2022.
 
-To make sure you have installed all the required . NET libraries, use the NuGet package manager.
+To make sure you have installed all the required . NET libraries in Visual Studio, use the NuGet package manager.
 
-Once you clone this repository, open it in visual studio and go to Tools -> NuGet Package Manager -> Package Manager Console. In the Package Manager Console type Update-Database. The Update-Database command is needed to create the database. 
+Once you are done with all the installations, go back to this github repository.
 
-Once the Package Manager Console finishes its job, you can run the application.
+Click on the green Code button located at the top of this github repository and click Open with Visual Studio to start the cloning process.
+
+After successfully cloning the repository, make sure to download the podatoci.dacpac file, which can be found at the bottom of this repository. This file contains all the important information (including the data) for building the database. 
+
+Next, in Visual Studio open the SQL Server Object Explorer, select your MSSQLLocalDB and perform right-click on the Databases folder. Then click on Publish Data-tier Application.
+
+In the file on disk field select the podatoci.dacpac file. Then, in the database name field type WorkshopImproved.Data and finally click Publish.
+
+If after clicking the publish button a window pops up asking to proceed with the task make sure to click Yes.
+
+Once the Data-tier application is published, make sure to click the refresh button located at the SQL Server Object Explorer.
+
+Now you can finally run the application and you will notice that it will be opened in your preferred web-browser.
 
 <h2 align = center>Goal and requirements</h2>
 
